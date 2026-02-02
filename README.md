@@ -1,119 +1,151 @@
 # Student Management System.
 
-A simple command-line Python application for managing student records with CRUD (Create, Read, Update, Delete) operations and data persistence.
+A Python application for managing student records using JSON for data persistence and CSV for data export.
 
 ## Description.
 
-This project is a **Mini Project** developed in Python that allows educational institutions or teachers to manage student information. The system stores student records including:
-- **Cédula** (Identification Number).
-- **Nombre** (Student Name).
-- **Nota Final** (Final Grade: 0.0 - 5.0).
+This project is a student management system that allows you to:
+- Add, view, search, modify, and delete student records.
+- Store data persistently in JSON format.
+- Export data to CSV format.
+- Validate input data (grades between 0.0-5.0, unique IDs).
 
 ## Features.
 
-- **View Records**: Display all registered students in a formatted table.
-- **Add Student**: Register new students with validation.
-- **Edit Student**: Modify existing student information.
-- **Delete Student**: Remove students from the system.
-- **Data Persistence**: Automatic saving to JSON with Excel backup.
-- **Input Validation**: Ensures data integrity (no empty fields, valid grades).
+| Feature | Description |
+|---------|-------------|
+| **Add Student** | Register new students with ID, name, and grade |
+| **List Students** | Display all students in a formatted table |
+| **Search Student** | Find students by their ID |
+| **Modify Student** | Update student name and/or grade |
+| **Delete Student** | Remove a student with confirmation |
+| **Export to CSV** | Convert JSON data to CSV format |
 
-## Technologies Used.
+## Requirements.
 
-- **Python 3.x**
-- **pandas**: Data manipulation and Excel file handling.
-- **JSON**: Data storage format.
-- **pathlib**: File path handling.
+- Python 3.6 or higher.
+- No external dependencies (uses standard library only).
 
-## How to Run.
+## Installation.
 
-1. Make sure you have Python installed (version 3.6 or higher).
-2. Install the required dependency:
+1. Navigate to the project directory:
    ```bash
-   pip install pandas openpyxl
-   ```
-3. Run the application:
-   ```bash
-   python mini.py
+   cd "PyTHON DS/Mini project json ans csv (Célula)"
    ```
 
-## User Guide.
+2. No additional installation required - uses Python standard library.
 
-When you run the application, you'll see a menu with the following options:
+## Usage.
 
-| Option | Description |
-|--------|-------------|
-| `1` | View all student records |
-| `2` | Add a new student |
-| `3` | Edit an existing student |
-| `4` | Delete a student |
-| `0` | Exit the application |
-
-### Adding a Student.
-1. Select option `2` from the menu.
-2. Enter the student's Cédula (ID number).
-3. Enter the student's name.
-4. Enter the final grade (0.0 - 5.0).
-
-### Editing a Student.
-1. Select option `3` from the menu.
-2. View the list of students with their indices.
-3. Enter the number of the student to edit.
-4. Press Enter to keep current values or enter new ones.
-
-### Deleting a Student.
-1. Select option `4` from the menu.
-2. View the list of students.
-3. Enter the number of the student to delete.
-4. Confirm deletion by typing `Y` or `yes`.
-
-## Data Format.
-
-### JSON Structure.
-```json
-[
-  {
-    "Cedula": 20123456,
-    "Nombre": "Maria Jose Gonzalez Perez",
-    "Nota final": 2.8
-  }
-]
+Run the application:
+```bash
+python mini_project.py
 ```
 
-### Column Description.
-| Column | Type | Description |
-|--------|------|-------------|
-| Cédula | Integer/String | Unique student identification number |
-| Nombre | String | Student's full name |
-| Nota final | Float | Final grade (0.0 to 5.0) |
+## Main Menu Options.
 
-## Functions Overview.
+```
+========================================
+           MAIN MENU
+========================================
+ 1. Add student
+ 2. List students
+ 3. Search student by ID
+ 4. Modify student
+ 5. Delete student
+ 6. Export to CSV
+ 0. Exit
+========================================
+```
+
+### Menu Options Detail.
+
+| Option | Action |
+|--------|--------|
+| `1` | Add a new student (requires ID, name, grade) |
+| `2` | Display all registered students |
+| `3` | Search for a student by ID |
+| `4` | Modify existing student data |
+| `5` | Delete a student (requires confirmation) |
+| `6` | Export all students to CSV file |
+| `0` | Exit the application |
+
+## Functions Reference.
 
 ### Persistence Functions.
-- `load_from_excel()`: Loads data from Excel file.
-- `load_from_json()`: Loads data from JSON file (primary).
-- `save_to_json()`: Saves DataFrame to JSON file.
 
-### Validation Functions.
-- `input_non_empty()`: Ensures non-empty user input.
-- `input_float()`: Validates float input within grade range.
+| Function | Description |
+|----------|-------------|
+| `load_students()` | Loads students from `students.json` |
+| `save_students(students)` | Saves student list to `students.json` |
+| `export_to_csv(students)` | Exports students to `students.csv` |
 
-### CRUD Functions.
-- `show_records()`: Displays all students in a formatted table.
-- `add_student()`: Adds a new student to the system.
-- `edit_student()`: Modifies existing student data.
-- `delete_student()`: Removes a student from the system.
+### CRUD Operations.
 
-## Technical Details.
+| Function | Description |
+|----------|-------------|
+| `add_student(students)` | Adds a new student with validation |
+| `list_students(students)` | Displays all students in tabular format |
+| `search_student(students)` | Searches student by ID |
+| `modify_student(students)` | Modifies existing student data |
+| `delete_student(students)` | Deletes a student by ID |
 
-- **Data Cleaning**: Automatically removes empty rows and duplicates.
-- **Automatic Backup**: Falls back to Excel if JSON is corrupted or missing.
-- **Grade Rounding**: Grades are rounded to 1 decimal place.
-- **Duplicate Prevention**: Prevents duplicate Cédula entries.
+### Input Validation Functions.
+
+| Function | Description |
+|----------|-------------|
+| `input_id(prompt)` | Requests non-empty ID |
+| `input_name(prompt)` | Requests non-empty name |
+| `input_grade(prompt)` | Requests valid grade (0.0-5.0) |
+
+## Data Validation.
+
+- **Student ID**: Must be unique (no duplicates allowed).
+- **Grade**: Must be a number between 0.0 and 5.0.
+- **Name**: Cannot be empty.
+- **ID**: Cannot be empty.
+
+## Example Output.
+
+### List Students.
+```
+══════════════════════════════════════════════════
+ID              Nombre                              Nota
+══════════════════════════════════════════════════
+123456789       Juan Pérez                         4.50
+987654321       María García                       3.75
+══════════════════════════════════════════════════
+Total: 2 students
+```
+
+### Export to CSV.
+```
+Successfully exported to students.csv (2 records),
+```
 
 ## Notes.
 
-- The system automatically creates `registration.json` if it doesn't exist.
-- Excel files (`.xlsx`) require `openpyxl` library to be installed.
-- All changes are automatically saved after modification operations.
-- Invalid grades are automatically filtered out.
+- Data is automatically saved to `students.json` after each modification
+- CSV export can be done manually via option 6 or automatically on exit.
+- If `students.json` doesn't exist, the system starts with an empty database.
+- Type hints are used throughout the code for better readability.
+- All functions include error handling for robust operation.
+
+## Error Handling.
+
+The application handles:
+- Invalid JSON format.
+- File read/write errors.
+- Invalid numeric input.
+- Missing files (graceful degradation).
+
+## Project Structure.
+
+```
+PyTHON DS/Mini project json ans csv (Célula)/
+├── mini_project.py      # Main Python script
+├── students.json        # JSON database file (auto-created)
+├── students.csv         # CSV export file (auto-created)
+├── diagram_of_flow.png  # Program flow diagram
+└── README.md            # This file
+```
